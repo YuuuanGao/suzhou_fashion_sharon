@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.15/cropper.min.css" />
+    <title>SUZHOU Fashion Shore</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.6.0/p5.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ml5/0.6.0/ml5.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.15/cropper.min.js"></script>
+    <script src="sketch.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+
+    <script language="javascript" type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/p5.serialserver@0.0.28/lib/p5.serialport.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.17.1/matter.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/p5.collide2d@0.7.0/p5.collide2d.min.js"></script>
+    <link rel="stylesheet" href="cropperjs-main/src/css/cropper.css">
+
+    <style>
+        body {
+            font-family: 'Roboto', sans-serif;
+
+
+            overflow-x: hidden;
+        }
+
+        .huge-font-box {
+            width: 1300px;
+            margin-top: -4px;
+            margin-bottom: 8px;
+        }
+
+        .font-box {
+            width:calc(78.3vw - 42px);
+            display: flex;
+            flex-direction: row;
+            /* align-items: flex-start; */
+            justify-content: space-between;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            border: 2px solid #cecece;
+            /* 外边框 */
+            padding: 20px;
+            padding-bottom: 2px;
+            position: relative;
+            text-align: center;
+            background-color: white;
+        }
+
+        @font-face {
+            font-family: 'SZdigital';
+            src: url('font/SZ/SZdigital-Regular.otf') format('opentype');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        .fontContainer {
+            margin-left: -4px;
+            text-align: left;
+            /* font-family: 'SZdigital'; Apply the custom font */
+            flex-wrap: wrap;
+        }
+
+        .textInput {
+            /* width: 30%; */
+            width: 255px;
+            height: 70px;
+            padding: 10px;
+            border: 1px solid #000000;
+            /* border-radius: 5px; */
+
+            line-height: 70px;
+            font-size: 60px;
+            font-family: 'SZdigital', sans-serif;
+            /* Ensure input uses custom font */
+            text-align: center;
+        }
+
+        #canvasContainer {
+            top: calc(45.9vw + 14px);
+
+            width:78.2vw;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 10px;
+            justify-content: space-between;
+            margin-left: 16.2vw;
+            /* margin-right: 197px; */
+            flex-direction: row;
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .canvasFrame {
+            width: calc(21.6vw + 40px);
+            margin-top:5px;
+            margin-right:4px
+        }
+
+        .canvasBox {
+            flex: 1 1 calc(2.66% - 20px);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 0px;
+            flex-direction: column;
+
+        }
+
+        .canvasGroup {
+            background-color: white;
+            display: flex;
+             width:24.3vw;
+            height:calc(13.5vw - 41px);
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-around;
+            margin-right: 0px;
+            margin-bottom: 0px;
+            border: 2px solid #cecece;
+            padding: 20px 0;
+            position: relative;
+            text-align: center;
+        }
+
+        .bigButtonContainer {
+            display: flex;
+
+            margin-left:5px
+        }
+
+        .buttonContainer {
+
+            width:50%;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: flex-start;
+            margin-left:5%;
+            gap: 6px;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 20px;
+            /* padding-top: 100px; */
+            /* padding-left: 70px */
+        }
+
+        .underline {
+            text-decoration: underline;
+            font-style: italic;
+            letter-spacing:2px;
+        }
+
+        .square::before {
+            content: "";
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            background-color: #00FF00;
+            margin-right: 5px;
+        }
+
+        .imagename::before {
+            content: "";
+            display: inline-block;
+            width: 13px;
+            height: 13px;
+            background-color: #00FF00;
+            margin-right: 5px;
+        }
+
+        .circle::before {
+            content: "";
+            display: inline-block;
+            width: 15px;
+            height: 15px;
+            background-color: #F7931E;
+            border-radius: 50%;
+            margin-right: 5px;
+        }
+
+        p {
+            margin: 0;
+            
+        }
+
+        .underline,
+        .square,
+        .circle {
+            margin: 0;
+        }
+
+        .indent {
+            text-indent: 29px;
+        }
+
+        .spaced {
+            margin-top:15px;
+        }
+
+        .top-right-suzhou {
+            position: absolute;
+            top: 35px;
+            right: 4.5vw;
+            font-size: 20px;
+            font-family: 'Helvetica', sans-serif;
+        }
+
+        html {
+            --s: 2.7vw;                /* 控制网格的大小 */
+            --n:4;               /* 控制粒度，假设原为4px，转换为相应的vw */
+            --t: 0.052vw;              /* 线条厚度，假设原为1px，转换为相应的vw */
+            --g: 0.26vw;               /* 虚线之间的间隙，假设原为5px，转换为相应的vw */
+            --c: #999999 25%, #0000 0; /* 颜色，保持不变 */
+        
+
+            /*background grids*/
+            background:
+                conic-gradient(at var(--g) var(--t), var(--c)) calc((var(--s)/var(--n) - var(--g) + var(--t))/2) 0/ calc(var(--s)/var(--n)) var(--s),
+                conic-gradient(from 180deg at var(--t) var(--g), var(--c)) 0 calc((var(--s)/var(--n) - var(--g) + var(--t))/2)/ var(--s) calc(var(--s)/var(--n));
+        }
+
+        /*rectangle on the left*/
+        #rectangle {
+            /* display: grid; */
+            width: 8.8vw;
+            height: 37.8vw;
+            background: rgb(255, 255, 255);
+            border: 2px solid #cecece;
+            position: absolute;
+            top:5.4vw;
+            left:2.7vw;
+            padding: 1vw;
+            padding-bottom: 0;
+            padding-top: 0;
+            /* 给内容添加一些内边距 */
+            /* padding-bottom: 170px; */
+
+         
+        }
+
+        .svg-image {
+
+            background-color: white;
+
+            border: 2px solid #000;;
+            width: 78.3vw;
+            /* 调整宽度 */
+            height: 37.8vw;
+            /* 等比缩放高度 */
+            position: absolute;
+            /* 设置相对定位 */
+            left:16.2vw;
+            /* 向右移动 50 像素 */
+            top: 5.4vw;
+
+            background-image: url("image/bg.png");
+            background-size: cover; /* 使背景图覆盖整个div */
+            background-position: center; /* 背景图居中 */
+            background-repeat: no-repeat; /* 不重复背景图 */
+            
+            /* 向下移动 20 像素 */
+        }
+
+
+        #circlew1 {
+        display: inline-block; /* 使 span 作为块元素显示 */
+        width: 30px; /* 圆的宽度 */
+        height: 30px; /* 圆的高度 */
+        background-color: #3498db; /* 圆的背景颜色 */
+        border-radius: 50%; /* 设置圆角为 50% 形成圆形 */
+        border: 2px solid #2980b9; /* 圆的边框 */
+    }
+        #circlew2 {
+        display: inline-block; /* 使 span 作为块元素显示 */
+        width: 30px; /* 圆的宽度 */
+        height: 30px; /* 圆的高度 */
+        background-color: #3498db; /* 圆的背景颜色 */
+        border-radius: 50%; /* 设置圆角为 50% 形成圆形 */
+        border: 2px solid #2980b9; /* 圆的边框 */
+    }
+
+        #title {
+            font-size: 20px;
+            font-weight: bold;
+            margin-bottom: 10px;
+        }
+
+        .spaced:hover {
+            text-decoration: underline;
+            font-style: italic;
+            cursor: pointer;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        crop-image {
+            display: none;
+        }
+
+        /* Modal styles */
+        .Modal {
+            display: none;
+            /* Hidden by default */
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            overflow: auto;
+            /* Enable scroll if needed */
+        }
+
+        #modalContent {
+            display: flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 10% auto;
+            padding: 20px;
+            border: 1.5px solid #000000;
+            align-items: center;
+            width: 800px;
+            height: 500px;
+            position: relative;
+        }
+
+        #closeModal {
+            color: #000000;
+            position: absolute;
+            /* Position the close button */
+            top: -46px;
+            right: 0px;
+            font-size: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            cursor: pointer;
+            width: 40px;
+
+
+            /* line-height: 40px; */
+            /* Width of the circle */
+            height: 40px;
+            /* Height of the circle */
+            display: flex;
+            /* Flexbox for centering the 'X' */
+            justify-content: center;
+            /* Center horizontally */
+            align-items: center;
+            /* Center vertically */
+            border: 1px solid rgb(0, 0, 0);
+            /* Circle border */
+            border-radius: 50%;
+            /* Makes the button circular */
+            background-color: white;
+            /* Background color of the circle */
+            transition: background-color 0.3s;
+
+            background-image: url("./x.png");
+            background-size: 70% 70%; /* 使背景图覆盖整个div */
+            background-position: center; /* 背景图居中 */
+            background-repeat: no-repeat; /* 不重复背景图 */
+            /* Transition for hover effect */
+        }
+
+
+        canvas {
+            border: 1px solid black;
+        }
+
+
+        .custom-button {
+            width: 100px;
+            background-color: #FFFFFF;
+            color: black;
+            border: 1px solid #000000;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 50px;
+            border-radius: 20px;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+        }
+
+        .custom-button:hover {
+            background-color: #000000;
+            color: white;
+        }
+
+        #upload {
+            display: none;
+            /* 隐藏原有的input */
+        }
+
+        label[for="upload"] {
+            display: inline-block;
+            width: 100px;
+            background-color: #FFFFFF;
+            color: black;
+            border: 1px solid #000000;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        label[for="upload"]:hover {
+            background-color: #000000;
+            color: white;
+        }
+        label[for="upload2"] {
+            display: inline-block;
+            width: 100px;
+            background-color: #FFFFFF;
+            color: black;
+            border: 1px solid #000000;
+            padding: 3px 10px;
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer;
+            border-radius: 20px;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        label[for="upload2"]:hover {
+            background-color: #000000;
+            color: white;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px;
+            align-items: flex-start;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: column;
+            align-items: left;
+            text-align: left;
+            gap: 10px;
+        }
+
+        .text-container {
+            display: flex;
+            flex-direction: column;
+        }
+        .containerc {
+
+
+            width:58vw;
+           
+            margin-left:13.5vw;
+            margin-top:5.9vw;
+            /* width: 100%; */
+            height:27vw;
+           /* background-color: red; */
+           display: flex;
+           flex-direction: column;
+
+           justify-content: space-between;
+           align-items:center;
+           flex-wrap: wrap;
+
+           
+       }
+       .rectangle {
+           width: 19vw; /* 矩形高度 */
+           height: 11.1vw;
+           background-color: lightblue; /* 矩形背景颜色 */
+           display: flex;
+           align-items: center;
+           justify-content: center;
+           font-size: 20px; /* 字体大小 */
+           border: 1px solid #000; /* 矩形边框 */
+           background-size: cover; /* 使背景图像覆盖整个 div */
+            background-position: center; /* 背景图像居中 */
+            background-repeat: no-repeat; /* 不重复背景图像 */
+       }
+        .color-button {
+            border-radius: 50%;
+            /* 圆形 */
+            width:10px;
+            /* 宽度 */
+            height: 10px;
+            /* 高度 */
+            padding: 0;
+            /* 无内边距 */
+            border: none;
+        }
+
+        .textInput {
+            /* width: 200px; */
+            /* 设置宽度 */
+            /* height: 66px; */
+            /* 设置高度 */
+            resize: none;
+        }
+    </style>
+</head>
+
+<body>
+
+
+   
+    <div class="svg-image" >
+        <div class="containerc">
+
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v1"></div>
+            </div>
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v4"></div>
+            </div>
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v2"></div>
+            </div>
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v5"></div>
+            </div>
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v3"></div>
+            </div>
+            <div>
+                <div style="    width: 13px;
+                height: 13px;
+                background-color: #00FF00;"></div>
+                <div class="rectangle"  id="v6"></div>
+            </div>
+
+            </div>
+       
+    </div>
+
+       <div  style="position: absolute;left:40.5vw;top:14.5vw;overflow: hidden;">
+        <div style="     width: 15px;
+        height: 15px;
+        background-color: #F7931E;
+        border-radius: 50%;"></div>
+
+        <iframe src="./text1/index.html" width="200" height="200" frameborder="0" id="fra1"></iframe>
+
+
+
+       </div>
+       <div  style="position: absolute;left:67.6vw;top:21vw;overflow: hidden;">
+        <div style="       width: 15px;
+        height: 15px;
+        background-color: #F7931E;
+        border-radius: 50%;"></div>
+
+        <iframe src="./text2/index.html" width="530" height="116"   frameborder="0" id="fra2"></iframe>
+
+
+
+       </div>
+  
+
+
+    <div id="myModal1" class="Modal">
+        <div id="modalContent">
+            <span id="closeModal" onclick="closeModal(1)" style="cursor: pointer;"></span>
+            <div class="flex-container">
+                <div class="text-container">
+
+                    <canvas id="canvas" width="500" height="290"></canvas>
+                    <div class="main-container">
+                        <div class="image-container">
+                            <!-- <img id="image" src="pattern/_rectangle/suzhou.jpeg" alt="Uploaded Image" style="max-width: 200px; height: auto;"> -->
+                        </div>
+                    </div>
+
+                    <div class="cropped-container">
+                        <img src="" id="output">
+                    </div>
+
+                    <p>image size: 500*290</p>
+
+                </div>
+                <div class="image-container">
+                    <p   id="tb0">image 1</p>
+                    <img id="insertedImage" src="image/small buiding/image1.png" alt="Inserted Image"
+                        style="max-width: 200px; height: auto;">
+                    <label for="upload">Upload files</label>
+                    <input type="file" id="upload" accept="image/*">
+                    <button id="btn-crop" class="custom-button"
+                        onclick="closeModal(1);">Crop</button>
+                    <img id="output" alt="Cropped Image" style="display: none; max-width: 200px; height: auto;">
+                    <div class="cropped-container" style="display: none;">
+                        <img id="output" alt="Cropped Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="file" id="upload" accept="image/*">
+    </div>
+    <div id="myModal2" class="Modal">
+        <div id="modalContent">
+            <span id="closeModal" onclick="closeModal2(1)" style="cursor: pointer;"></span>
+            <div class="flex-container">
+                <div class="text-container">
+
+                    <canvas id="canvas2" width="500" height="290"></canvas>
+                    <div class="main-container">
+                        <div class="image-container">
+                            <!-- <img id="image" src="pattern/_rectangle/suzhou.jpeg" alt="Uploaded Image" style="max-width: 200px; height: auto;"> -->
+                        </div>
+                    </divwoming
+
+                    <div class="cropped-container">
+                        <img src="" id="output2">
+                    </div>
+
+                    <!-- <p>image size:200*200</p> -->
+
+                </div>
+                <div class="image-container">
+                    <p   id="tb0">image</p>
+                    <!-- <img id="insertedImage" src="image/small buiding/image1.png" alt="Inserted Image"
+                        style="max-width: 200px; height: auto;"> -->
+                    <label for="upload2">Upload files</label>
+                    <input type="file" id="upload2" accept="image/*"   style="display: none;">
+                    <button id="btn-crop2" class="custom-button"
+                        onclick="closeModal2(1);">Crop</button>
+                    <img id="output2" alt="Cropped Image" style="display: none; max-width: 200px; height: auto;">
+                    <div class="cropped-container" style="display: none;">
+                        <img id="output2" alt="Cropped Image">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <input type="file" id="upload" accept="image/*">
+    </div>
+  
+
+  
+
+    
+
+    <div id="rectangle">
+        <a href="index.html">
+        <p class="spaced underline"><em>Main Poster</em></p>
+    </a>
+        <p class="square"  > image 1 </p>
+        <p class="square"> image 2 </p>
+        <p class="square"> image 3 </p>
+        <p class="square"> image 4 </p>
+        <p class="square"> image 5</p>
+        <p class="square"> image 6</p>
+        <p class="circle"> text 1</p>
+        <p class="circle"> text 2</p>
+
+        <a href="typeface.html">
+            <p class="spaced"> Typeface</p>
+        </a>
+        <p style="margin-left:25px">custom</p>
+
+        <a href="image.html">
+            <p class="spaced"> Image</p>
+        </a>
+        <p style="margin-left:25px">custom</p>
+
+    </div>
+
+    <p class="top-right-suzhou">SUZHOU Fashion Shore</p>
+
+    <div id="canvasContainer">
+
+
+
+        
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 1 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container0"></div>
+                <div class="canvasBox" id="container1"></div>
+            </div>
+        </div>
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 2 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container2"></div>
+                <div class="canvasBox" id="container3"></div>
+            </div>
+        </div>
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 3 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container4"></div>
+                <div class="canvasBox" id="container5"></div>
+            </div>
+
+        </div>
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 4 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container6"></div>
+                <div class="canvasBox" id="container7"></div>
+            </div>
+        </div>
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 5 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container8"></div>
+                <div class="canvasBox" id="container9"></div>
+            </div>
+        </div>
+
+        <div class="canvasFrame">
+            <p class="imagename"> image 6 </p>
+            <div class="canvasGroup">
+                <div class="canvasBox" id="container10"></div>
+                <div class="canvasBox" id="container11"></div>
+            </div>
+        </div>
+
+        <div class="huge-font-box">
+            <p class="imagename"> text1 </p>
+            <div class="font-box">
+
+
+                
+                <div class="fontContainer">
+                    <div style="border:1px solid black; width:150px;height:150px;background-color: white;text-align: center ;line-height:135px"> 
+                        <button style="width: 100px; background-color: rgb(255, 255, 255); color: black; border: 1px solid rgb(0, 0, 0); text-align: center; text-decoration: none; font-size: 12px; cursor: pointer; border-radius: 20px;" onclick="bk(0)">upload image</button>
+                        <!-- <input type="file" id="uploadv"  onchange="handleFileUpload(event)" accept="image/*" style="display: none;"> -->
+                    </div>
+                    <p class="body" style="font-size: 12px">background</p>
+                </div>
+                <div class="fontContainer">
+
+                    <div   id = "k1" style="border:1px solid black;width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        ABC
+                    </div>
+
+                    <p class="body" style="font-size: 12px;line-height:21px">text color</p>
+
+                    <div  style="border:1px solid black;width:70px;height:70px;background-color: white;display: flex;
+                    justify-content: center; /* 水平居中 */
+                    align-items: center; /* 垂直居中 */">
+                        <div id="circlew1"  >.</div>
+                    </div>
+
+                    <p class="body" style="font-size: 12px">ball color</p>
+                   
+                </div>
+                <div class="fontContainer">
+
+                    <div style="border:1px solid black; width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        <input type="color" id="colorPicker1" value="#ff0000" >
+                    </div>
+
+                    <p class="body" style="font-size: 16px;visibility: hidden;">cccc</p>
+
+                    <div style="border:1px solid black; width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        <input type="color" id="colorPicker2" value="#ff0000">
+                    </div>
+
+                    <p class="body" style="font-size: 16px;visibility: hidden;">cccc</p>
+                   
+                </div>
+                <div class="fontContainer">
+                    <textarea id="textInputA" class="textInput" rows="4" cols="65" placeholder="ABC.!"
+                        oninput="toUpperCase('textInputA')"></textarea>
+                    <p class="body" style="font-size: 12px">text input</p>
+                </div>
+                <div class="fontContainer">
+                    <div id="canvasContainer1"></div>
+                    <p class="body" style="font-size: 12px">wind direction (date): -210’</p>
+                </div>
+                <div class="fontContainer">
+                    <div id="canvasContainer3"></div>
+                    <p class="body" style="font-size: 12px">wind speed (date): 45</p>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="huge-font-box">
+            <p class="imagename"> text2 </p>
+            <div class="font-box">
+                <div class="fontContainer">
+                    <div style="border:1px solid black; width:150px;height:135px;background-color: white;text-align: center ;line-height:135px"> 
+                        <button style="width: 100px; background-color: rgb(255, 255, 255); color: black; border: 1px solid rgb(0, 0, 0); text-align: center; text-decoration: none; font-size: 12px; cursor: pointer; border-radius: 20px;" onclick="bk(1)">upload image</button>
+
+
+                        <!-- <button style="width: 100px; background-color: rgb(255, 255, 255); color: black; border: 1px solid rgb(0, 0, 0); text-align: center; text-decoration: none; font-size: 12px; cursor: pointer; border-radius: 20px; position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);">upload image</button> -->
+                        <input type="file" id="uploadc" accept="image/*"  onchange="handleFileUpload1(event)"  style="display: none;">
+                    </div>
+                    <p class="body" style="font-size: 12px">background</p>
+                </div>
+                <div class="fontContainer">
+
+                    <div   id="k2"style="border:1px solid black;width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        ABC
+                    </div>
+
+                    <p class="body" style="font-size: 12px;line-height:21px">text color</p>
+
+                    <div  style="border:1px solid black;width:70px;height:70px;background-color: white;display: flex;
+                    justify-content: center; /* 水平居中 */
+                    align-items: center; /* 垂直居中 */">
+                        <div id="circlew2">.</div>
+                    </div>
+
+                    <p class="body" style="font-size: 12px">ball color</p>
+                   
+                </div>
+                <div class="fontContainer">
+
+                    <div style="border:1px solid black; width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        <input type="color" id="colorPicker3" value="#ff0000">
+                    </div>
+
+                    <p class="body" style="font-size: 16px;visibility: hidden;">cccc</p>
+
+                    <div style="border:1px solid black; width:70px;height:70px;background-color: white;text-align: center ;line-height:70px">
+                        <input type="color" id="colorPicker4" value="#ff0000">
+                    </div>
+
+                    <p class="body" style="font-size: 16px;visibility: hidden;">cccc</p>
+                   
+                </div>
+                <div class="fontContainer">
+                    <textarea id="textInputB" class="textInput" rows="4" cols="50" placeholder="ABC.!"
+                        oninput="toUpperCase1('textInputB')"></textarea>
+                    <p class="body" style="font-size: 12px">text input</p>
+                </div>
+                <div class="fontContainer">
+                    <div id="canvasContainer2"   ></div>
+                    <p class="body" style="font-size: 12px">wind direction (date): -210’</p>
+                </div>
+                <div class="fontContainer">
+                    <div id="canvasContainer4"  > </div>
+                    <p class="body" style="font-size: 12px">wind speed (date): 45</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <br><br><br>
+    <div id="canvasContainer">
+        <img src="image/guide.png" width="1100">
+    </div>
+    <br><br><br><br><br>
+
+
+
+<script src="script.js"></script>
+    <script src="windX.js"></script>
+    <script src="windY.js"></script>
+    <script>
+       document.getElementById('colorPicker1').addEventListener('input', function() {
+    const selectedColor = this.value;
+
+    console.log(selectedColor)
+
+
+    document.getElementById('fra1').contentWindow.handletxtC(selectedColor);
+    document.getElementById('k1').style.color = selectedColor;
+});
+       document.getElementById('colorPicker2').addEventListener('input', function() {
+    const selectedColor = this.value;
+    document.getElementById('fra1').contentWindow.handleeC(selectedColor);
+    console.log(selectedColor)
+    document.getElementById('circlew1').style.backgroundColor = selectedColor;
+});
+       document.getElementById('colorPicker3').addEventListener('input', function() {
+    const selectedColor = this.value;
+    document.getElementById('fra2').contentWindow.handletxtC(selectedColor);
+    console.log(selectedColor)
+    document.getElementById('k2').style.color = selectedColor;
+});
+       document.getElementById('colorPicker4').addEventListener('input', function() {
+    const selectedColor = this.value;
+    document.getElementById('fra2').contentWindow.handleeC(selectedColor);
+    console.log(selectedColor)
+    document.getElementById('circlew2').style.backgroundColor = selectedColor;
+});
+
+
+        function toUpperCase(id) {
+            const textInput = document.getElementById(id);
+            textInput.value = textInput.value.toUpperCase();
+            // textInput.value=textInput.value.replace(/B/g, 'D');
+            document.getElementById('fra1').contentWindow.handleTT(textInput.value);
+        }
+        function toUpperCase1(id) {
+            const textInput = document.getElementById(id);
+            textInput.value = textInput.value.toUpperCase();
+
+            // textInput.value=textInput.value.replace(/B/g, 'D');
+            document.getElementById('fra2').contentWindow.handleTT(textInput.value);
+        }
+
+
+        function mm1(){
+            document.getElementById('uploadc').click();
+
+           
+        }
+
+
+        function bk(z){
+
+
+            // if(z==0){
+
+
+                document.getElementById("output2").src=""
+            // }
+
+
+            sessionStorage.setItem("mko",z)
+
+
+            const modal = document.getElementById('myModal2'); 
+            modal.style.display = 'block';
+
+
+        }
+        function handleFileUpload(event) {
+
+
+            console.log("iiiii")
+          let file = event.target.files[0];
+
+//    console.log(event,fileInput)
+
+          if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const imageSrc = e.target.result;
+
+
+              sessionStorage.setItem("imageSrc1", imageSrc);
+
+
+              document.getElementById('fra1').contentWindow.handleFile();
+
+
+            }
+
+            reader.readAsDataURL(file);
+          }
+
+        }
+        function handleFileUpload1(event) {
+            let file = event.target.files[0];
+
+
+
+          if (file) {
+
+            const reader = new FileReader();
+
+            reader.onload = function (e) {
+              const imageSrc = e.target.result;
+
+
+              sessionStorage.setItem("imageSrc2", imageSrc);
+
+
+              document.getElementById('fra2').contentWindow.handleFile();
+
+
+            }
+
+            reader.readAsDataURL(file);
+          }
+
+        }
+
+        setTimeout(function() {
+    console.log("10秒已过，函数被执行了！");
+
+
+
+        const canvases = [
+            document.getElementById('processingCNV1'),
+            document.getElementById('processingCNV2'),
+            document.getElementById('processingCNV3'),
+            document.getElementById('processingCNV4'),
+            document.getElementById('processingCNV5'),
+            document.getElementById('processingCNV6')
+        ];
+
+        const ctxs = canvases.map(canvas => canvas.getContext('2d'));
+
+   
+
+        // 同步canvas内容到对应的div
+        function syncCanvasToDiv() {
+            canvases.forEach((canvas, index) => {
+                const dataURL = canvas.toDataURL();
+                document.getElementById(`v${index + 1}`).style.backgroundImage = `url(${dataURL})`;
+            });
+        }
+
+        // 更新函数
+        function update() {
+            // draw(); // 绘制canvas内容
+            syncCanvasToDiv(); // 同步到div
+            requestAnimationFrame(update); // 循环调用
+        }
+
+        // 启动更新循环
+        update();
+
+
+    }, 10000);
+        
+    </script>
+
+
+</body>
+
+</html>

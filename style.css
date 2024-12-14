@@ -1,0 +1,360 @@
+body {
+            font-family: 'Roboto', sans-serif;
+        }
+
+        .huge-font-box{
+            width:1300px;
+        }
+
+        .font-box {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-around; 
+            margin-right: 0px; 
+            margin-bottom: 0px;
+            border: 1px solid #FF36AE; /* 外边框 */
+            padding: 20px; 
+            position: relative;
+            text-align: center;
+        }
+      
+        .transparent-iframe {
+            border: none; /* 去掉边框 */
+            background-color: transparent; /* 设置背景为透明 */
+            /* width:385px;
+            height:310px; */
+           
+        }
+   
+        @font-face {
+                font-family: 'SZdigital';
+                src: url('font/SZ/SZdigital-Regular.otf') format('opentype');
+                font-weight: normal;
+                font-style: normal;
+            }
+
+        .fontContainer {
+            margin-left: 2px;
+            text-align: left;
+            /* font-family: 'SZdigital'; Apply the custom font */
+            flex-wrap: wrap;
+        }   
+
+        #textInput {
+            width: 30%;
+            height: 100px;
+            padding: 10px;
+            border: 1px solid #000000;
+            border-radius: 5px;
+            font-size: 90px;
+            font-family: 'SZdigital', sans-serif; /* Ensure input uses custom font */
+            text-align: center;
+        }
+
+        #canvasContainer {
+            top: 51px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 25px 10px;
+            justify-content: space-between; 
+            margin-left: 236px;
+            margin-right: 197px;
+            flex-direction: row; 
+            align-items: flex-start;
+            position: relative;
+        }
+
+        .canvasFrame {
+            width:385px;
+            height:310px;
+
+            border: none;
+            overflow: hidden;
+        }
+        
+        .canvasBox {
+            flex: 1 1 calc(2.66% - 20px); 
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0px; 
+            flex-direction: column;
+            
+        }
+
+        .canvasGroup {
+            display: flex;
+            flex-direction: row;
+            align-items: flex-start;
+            justify-content: space-around; 
+            margin-right: 0px; 
+            margin-bottom: 0px;
+            border: 2px solid #FF36AE; 
+            padding: 20px; 
+            position:relative;
+            text-align: center;
+        }
+
+        .bigButtonContainer {
+            display: flex;
+        }
+
+        .buttonContainer {
+            display: flex;           
+            flex-wrap: wrap;        
+            justify-content: flex-start;
+            gap: 6px;              
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Helvetica Neue', sans-serif; 
+            font-size: 20px;
+            padding-top: 100px; 
+            padding-left: 70px
+        }
+
+        .underline {
+            text-decoration: underline; 
+            font-style: italic; 
+        }
+
+        .square::before {
+            content: ""; 
+            display: inline-block;
+            width: 1em; 
+            height: 1em; 
+            background-color: #00FF00; 
+            margin-right: 5px; 
+        }
+
+        .imagename::before {
+            content: ""; 
+            display: inline-block;
+            width: 1em; 
+            height: 1em; 
+            background-color: #00FF00; 
+            margin-right: 5px; 
+        }
+
+        .circle::before {
+            content: ""; 
+            display: inline-block;
+            width: 1em; 
+            height: 1em; 
+            background-color: #F7931E; 
+            border-radius: 50%; 
+            margin-right: 5px; 
+        }
+
+        p {
+            margin: 0;
+            line-height: 1.5; 
+        }
+
+        .underline, .square, .circle {
+            margin: 0;
+        }
+
+        .indent {
+            text-indent: 29px; 
+        }
+
+        .spaced {
+        margin-top: 30px; 
+        }
+
+        .top-right-suzhou {
+        position: absolute; 
+        top: 35px; 
+        right: 20px; 
+        font-size: 20px; 
+        font-family: 'Helvetica', sans-serif;
+        }
+
+        html {
+         /*background grids*/
+            --s: 51px;  /* control the size of the grid */
+            --n: 4;      /* control the granularity */
+            --t: 1px;    /* the thickness */
+            --g: 5px;   /* the gap between dashes */
+            --c:#999999 25%,#0000 0;
+        
+        /*background grids*/
+            background: 
+                conic-gradient(at var(--g) var(--t),var(--c))
+                calc((var(--s)/var(--n) - var(--g) + var(--t))/2) 0/
+                calc(var(--s)/var(--n)) var(--s),
+                conic-gradient(from 180deg at var(--t) var(--g),var(--c))
+                0 calc((var(--s)/var(--n) - var(--g) + var(--t))/2)/
+                var(--s) calc(var(--s)/var(--n));
+            }
+
+        /*rectangle on the left*/
+            #rectangle {
+            display: grid;
+            width: 135px; 
+            height: 500px; 
+            background: rgb(255, 255, 255, 0);
+            border: 2px solid #FF36AE;
+            position: absolute;
+            top: 102px; 
+            left: 50px; 
+            padding: 20px; /* 给内容添加一些内边距 */
+            padding-bottom: 170px;
+            }
+
+            .svg-image {
+            width: 85%; /* 调整宽度 */
+            height: auto; /* 等比缩放高度 */
+            position: relative; /* 设置相对定位 */
+            left: 236px; /* 向右移动 50 像素 */
+            top: 2px; /* 向下移动 20 像素 */
+        }
+
+        #title {
+            font-size: 20px; 
+            font-weight: bold; 
+            margin-bottom: 10px;
+        }
+
+        .spaced:hover {
+         text-decoration: underline; 
+         font-style: italic; 
+         cursor: pointer;
+        }
+
+        a {
+        text-decoration: none; 
+        color: inherit; 
+        }
+
+        crop-image {
+            display: none; 
+        }
+
+        /* Modal styles */
+        #myModal {
+            display:none; /* Hidden by default */
+            position: fixed; 
+            z-index: 1000; 
+            left: 0;
+            top: 0;
+            width: 100%; 
+            height: 100%; 
+            background-color: rgba(0, 0, 0, 0.7); 
+            overflow: auto; /* Enable scroll if needed */
+        }
+        
+        #modalContent {
+            display:flex;
+            flex-direction: column;
+            background-color: #fefefe;
+            margin: 10% auto; 
+            padding: 20px;
+            border: 1.5px solid #000000;
+            align-items: center;
+            width: 800px; 
+            height: 500px; 
+            position: relative; 
+        }
+
+        #closeModal {
+            color: #000000;
+            position: absolute; /* Position the close button */
+            top: -46px;
+            right: 0px;
+            font-size: 50px;
+            font-family: 'Roboto', sans-serif;
+            font-weight: 100;
+            cursor: pointer; 
+            width: 40px; /* Width of the circle */
+            height: 40px; /* Height of the circle */
+            display: flex; /* Flexbox for centering the 'X' */
+            justify-content: center; /* Center horizontally */
+            align-items: center; /* Center vertically */
+            border: 1px solid rgb(0, 0, 0); /* Circle border */
+            border-radius: 50%; /* Makes the button circular */
+            background-color: white; /* Background color of the circle */
+            transition: background-color 0.3s; /* Transition for hover effect */
+            }
+        
+
+        canvas {
+            border: 1.5px solid black;
+        }
+
+
+        .custom-button {
+            width: 100px;
+            background-color: #FFFFFF; 
+            color: black; 
+            border: 1px solid #000000; 
+            padding: 3px 10px; 
+            text-align: center;
+            text-decoration: none;
+            font-size: 12px;
+            cursor: pointer; 
+            border-radius: 50px;
+            border-radius: 20px; 
+            transition: background-color 0.3s, color 0.3s; 
+            display: inline-block; 
+        }
+
+        .custom-button:hover {
+            background-color: #000000; 
+            color: white; 
+        }
+
+        #upload {
+            display: none; /* 隐藏原有的input */
+        }
+
+        label[for="upload"] {
+            display: inline-block;
+            width: 100px; 
+            background-color: #FFFFFF; 
+            color: black; 
+            border: 1px solid #000000; 
+            padding: 3px 10px; 
+            text-align: center; 
+            text-decoration: none; 
+            font-size: 12px; 
+            cursor: pointer; 
+            border-radius: 20px; 
+            transition: background-color 0.3s, color 0.3s; 
+        }
+
+        label[for="upload"]:hover {
+            background-color: #000000; 
+            color: white;
+        }
+
+        .flex-container {
+            display: flex;
+            gap: 10px; 
+            align-items: flex-start;
+            }
+
+        .image-container {
+            display: flex;
+            flex-direction: column; 
+            align-items: left; 
+            text-align: left; 
+            gap:10px;
+            }
+
+        .text-container{
+            display: flex;
+            flex-direction: column;
+        }
+
+        .color-button {
+            border-radius: 50%; /* 圆形 */
+            width: 20px; /* 宽度 */
+            height: 20px; /* 高度 */
+            padding: 0; /* 无内边距 */
+            border: none;
+        }
+
